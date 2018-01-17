@@ -1,0 +1,42 @@
+{% block head %}
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/upload.css">
+  <link rel="stylesheet" href="/static/css/loading.css">
+{% endblock %}   
+
+{% block body %}
+  <div class="upload container">
+    <form class="form-horizontal image-form" role="form">
+      <div>
+        <span class="btn btn-file btn-primary btn-lg">
+          Upload Image
+          <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" title="Select an image file" />
+        </span>
+      </div>
+      <div class="img-wrapper row">
+      </div>
+    </form>
+  </div>
+  <div class="loading hide">
+    <div class="circle"></div>
+    <div class="circle-small"></div>
+    <div class="circle-big"></div>
+    <div class="circle-inner-inner"></div>
+    <div class="circle-inner"></div>
+    <div id="load">
+      <div>G</div>
+      <div>N</div>
+      <div>I</div>
+      <div>D</div>
+      <div>A</div>
+      <div>O</div>
+      <div>L</div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="/static/scripts/jquery-3.2.1.min.js"></script>
+  <script src="/static/scripts/upload.js"></script>
+  <script src="/static/scripts/transform.js"></script>
+{% endblock %}
