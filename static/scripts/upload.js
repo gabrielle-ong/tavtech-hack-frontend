@@ -21,14 +21,14 @@ $( function ()
 		'</div>' +
 		'<div class="form-group">' +
 		'<div class="col-xs-12">' +
-		'<button type="submit" class="btn btn-default">Convert to Photo</button>' +
+		'<input type="submit" class="btn btn-default">Convert to Photo</input>' +
 		'</div>' +
 		'</div>' +
 		'' +
 		'</div>' +
 		'</div>';
 
-	var fileInput = $( '#filesToUpload' );
+	var fileInput = $( '#fileToUpload' );
 	var fileDisplayArea = $( '.img-wrapper' );
 
 	function initCrop( el )

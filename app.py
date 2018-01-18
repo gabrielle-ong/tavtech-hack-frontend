@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['CACHE_TYPE'] = "null"
 
 photos = UploadSet('photos', IMAGES)
-app.config['UPLOADED_PHOTOS_DEST'] = 'static/img/uploads'
+app.config['UPLOADED_PHOTOS_DEST'] = 'static/images/uploads'
 configure_uploads(app, photos)
 '''
 4 Routes:
@@ -23,17 +23,26 @@ GET /knn
 GET / - static about page
 '''
 
-
 @app.route('/', methods=['GET'])
 def upload():
   return render_template('upload.html')
 
-@app.route('/convert', methods=['GET', 'POST'])
+@app.route('/convert', methods=['POST'])
 def convert():
-  if request.method == 'POST' and 'photo' in request.files:
-      filename = photos.save(request.files['photo'])
-      return filename
-  return render_template('result.html')
+  filename = photos.save(request.files['fileToUpload'])
+  pix2pix(filename)
+  return redirect('/loading')
+
+@app.route('/loading', methods=['GET'])
+def loading():
+  return render_template('loading.html')
+
+@app.route('/result', methods=['GET'])
+def result():
+  # get photo from /static/images/results
+  sketch_img_path = "/static/images/uploads/"+os.listdir('static/images/uploads')[0]
+  result_img_path = "/static/images/uploads/"+os.listdir('static/images/uploads')[1]
+  return render_template('result.html', sketch_img_path=sketch_img_path, result_img_path=result_img_path)
 
 @app.route('/databases', methods=['GET'])
 def databases():
@@ -42,6 +51,12 @@ def databases():
 @app.route('/knn', methods=['GET'])
 def knn():
   return render_template('knn.html')
+
+
+def pix2pix(filename):
+  sketch = os.listdir('')
+  os.system("cp static/images/uploads/"+filename + " static/images/uploads/"+filename[:-4]+"_photo.png")
+  # save output to /static/images/results
 
 
 # @app.route('/login')
