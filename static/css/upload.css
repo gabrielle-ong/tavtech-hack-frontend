@@ -1,20 +1,19 @@
-@import url("https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css");
-@import url("https://netdna.bootstrapcdn.com/bootswatch/3.1.0/cosmo/bootstrap.min.css");
-
-body {
-  background:#000;
-}
-
 .upload {
-  position: fixed;
-  top: 50%;
+  position: relative;
 }
-
+canvas {
+	position: absolute;
+}
+.brand-title {
+  position: absolute;
+  top: 32vh;
+  color: white;
+  font-size: 100px;
+  
+}
 .btn-file {
-  display: block;
-  width: 40%;
-  margin: auto;
-  top: 50%;
+  position: absolute;
+  top: 70vh;
 }
 .btn-file input[type=file] {
   position: absolute;

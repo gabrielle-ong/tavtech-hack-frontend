@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}   
+
+{% block body %}
+<div class="container">
+  <div class="row bs-wizard complete" style="border-bottom:0;">
+    <div class="col-xs-4 bs-wizard-step complete">
+      <div class="text-center bs-wizard-stepnum">Upload Sketch</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="/" class="bs-wizard-dot"></a>
+    </div>
+    
+    <div class="col-xs-4 bs-wizard-step active">
+      <div class="text-center bs-wizard-stepnum">Convert to Photo</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="/result" class="bs-wizard-dot"></a>
+    </div>
+    
+    <div class="col-xs-4 bs-wizard-step disabled">
+      <div class="text-center bs-wizard-stepnum">Face Recognition</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="/knn" class="bs-wizard-dot"></a>
+    </div>
+  </div>
+  <div class="center">
+    <img src="https://dummyimage.com/300x400/d0f2f5/fff.jpg&text=animation+here"/>
+    <img src="https://dummyimage.com/300x400/d0f2f5/fff.jpg&text=animation+here"/>
+  </div>
+  <div class="center">
+    <a href="/databases" class="btn btn-primary mtm">
+      Find Suspect
+    </a>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

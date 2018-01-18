@@ -4,37 +4,45 @@ import numpy as np
 import os
 
 # #flask imports
-from flask import Flask, flash, redirect, render_template, request, session, url_for
-# from flask import send_file
-# from flask_restful import Resource, Api
-# from flask import send_from_directory
-
-# #config import
-# import config
-
-'''
-4 Routes:
-GET /upload - upload image page
-POST /transform + CSS loading
-GET /result
-
-GET / - static about page
-'''
+from flask import Flask, redirect, render_template, request
+from flask.ext.uploads import UploadSet, configure_uploads, IMAGES
 
 app = Flask(__name__)
 app.config['CACHE_TYPE'] = "null"
 
+photos = UploadSet('photos', IMAGES)
+app.config['UPLOADED_PHOTOS_DEST'] = 'static/img/uploads'
+configure_uploads(app, photos)
+'''
+4 Routes:
+GET / - upload image page
+POST /convert + CSS loading
+GET /databases
+GET /knn
+
+GET / - static about page
+'''
+
+
 @app.route('/', methods=['GET'])
-def about():
-    return render_template('home.html')
-
-@app.route('/upload', methods=['GET'])
 def upload():
-    return render_template('upload.html')
+  return render_template('upload.html')
 
-@app.route('/transform', methods=['POST])
-def transform():
-    return render_template('upload.html')
+@app.route('/convert', methods=['GET', 'POST'])
+def convert():
+  if request.method == 'POST' and 'photo' in request.files:
+      filename = photos.save(request.files['photo'])
+      return filename
+  return render_template('result.html')
+
+@app.route('/databases', methods=['GET'])
+def databases():
+  return render_template('databases.html')
+
+@app.route('/knn', methods=['GET'])
+def knn():
+  return render_template('knn.html')
+
 
 # @app.route('/login')
 # def login():

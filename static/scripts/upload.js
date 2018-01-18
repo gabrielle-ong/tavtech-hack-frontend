@@ -11,7 +11,7 @@ $( function ()
 		'<img class="img-responsive" />' +
 		'</div>' +
 		'<div class="form-container col-xs-12 col-sm-6">' +
-		'<h3>Image Details</h3>' +
+		'<h3>Sketch Details</h3>' +
 		'' +
 		'<div class="form-group col-xs-12">' +
 		'<input class="form-control" type="text" name="name" placeholder="Name" required>' +
@@ -21,7 +21,7 @@ $( function ()
 		'</div>' +
 		'<div class="form-group">' +
 		'<div class="col-xs-12">' +
-		'<button type="submit" class="btn btn-default">Save & Continue</button>' +
+		'<button type="submit" class="btn btn-default">Convert to Photo</button>' +
 		'</div>' +
 		'</div>' +
 		'' +
@@ -80,8 +80,9 @@ $( function ()
 		};
 
 		reader.readAsDataURL( file );
+		debugger
 
-        preview.prependTo( fileDisplayArea );
+        preview.appendTo( fileDisplayArea );
 
 	}
 
@@ -94,6 +95,8 @@ $( function ()
 			var file = files[ i ];
 			createImage( file );
 		}
+		$(".upload").addClass('hide');
+		$(".preview").removeClass('hide');
 	} );
 
 	$( document ).on( 'click', 'span.crop', function ()
