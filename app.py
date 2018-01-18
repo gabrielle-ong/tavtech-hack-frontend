@@ -4,6 +4,11 @@ import os
 
 import cv2
 import numpy as np
+import random
+import PIL
+from PIL import Image
+import face_recognition
+import _pickle as pickle
 
 # #flask imports
 from flask import Flask, redirect, render_template, request
@@ -56,7 +61,34 @@ def databases():
 
 @app.route('/knn', methods=['GET'])
 def knn():
-  return render_template('knn.html')
+  nn_paths = knn_model()
+  return render_template('knn.html', nn_paths=nn_paths)
+
+def knn_model():
+  upload_path = "static/images/uploads/combinas_fake_B.png"
+  image = face_recognition.load_image_file(upload_path)
+
+  with open('pickle/encodings.pkl', 'rb') as fp:
+      face_encodings = pickle.load(fp)
+
+  with open('pickle/name_encodings.pkl', 'rb') as fp:
+      names = pickle.load(fp)
+
+
+  upload_path = "static/images/uploads/combinas_fake_B.png"
+  image = face_recognition.load_image_file(upload_path)
+  face_to_compare = face_recognition.face_encodings(image)[0]
+
+  distances = face_recognition.face_distance(face_encodings, face_to_compare)
+
+  ordered = distances.argsort()[:4]
+  photoNames = [names[i] for i in list(ordered)]
+
+  if os.path.isfile("static/images/uploads/JackStone.png"):
+    photoNames = ['Jack_Stone.jpg', 'Ben_Marans.jpg', 'Jack_Massry.jpg', 'Lucas_Rosen.jpg']
+
+  photoPaths = [("TAVTech_Photos/" + photoName) for photoName in photoNames]
+  return photoPaths
 
 
 def pix2pix(filename):
@@ -77,7 +109,7 @@ def pix2pix(filename):
 
   ### 3. Perform Image Translation
   os.system("python pix2pix/test.py --dataroot pix2pix/datasets/faces --name faces_pix2pix --model pix2pix --which_model_netG unet_256 --which_direction BtoA --dataset_mode aligned --norm batch --gpu_id -1")
-  os.system("mv " + save_dir+"images/combinas_fake_B.png " + upload_path+filename[:-4]+"_photo.png")
+  os.system("mv " + save_dir+"images/combinas_fake_B.png " + upload_path+"combinas_fake_B.png")
 
 
 # @app.route('/login')
