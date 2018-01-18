@@ -21,7 +21,7 @@ $( function ()
 		'</div>' +
 		'<div class="form-group">' +
 		'<div class="col-xs-12">' +
-		'<input type="submit" class="btn btn-default">Convert to Photo</input>' +
+		'<input type="submit" class="btn btn-default" value="Convert to Photo"></input>' +
 		'</div>' +
 		'</div>' +
 		'' +
@@ -80,7 +80,6 @@ $( function ()
 		};
 
 		reader.readAsDataURL( file );
-		debugger
 
         preview.appendTo( fileDisplayArea );
 
