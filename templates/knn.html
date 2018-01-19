@@ -25,13 +25,17 @@
     </div>
   </div>
 </div>
-<div class="center">
-    <img src="https://dummyimage.com/300x400/d0f2f5/fff.jpg&text=animation+here" img-responsive center-block/>
+<div class="container">
+  <div class="col-md-4 col-sm-12">
+    <img src={{result_img_path}} width="250" />
+  </div>
 </div>
-{% for img in nn_paths %}
-  <h1>{{img}}</h1>
-{% endfor %}
-{% endblock %}
+<div class="col-md-8">
+  {% for img in nn_paths %}
+    <img src={{img}} width="100" style="border:1px solid red; margin:20px"/>
+  {% endfor %}
+  {% endblock %}
+</div>
 
 {% block scripts %}
 {% endblock %}

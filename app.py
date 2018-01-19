@@ -52,14 +52,15 @@ def result(path="static/images/uploads/"):
   return render_template('result.html', sketch_img_path=sketch_img_path, result_img_path=result_img_path)
 
 @app.route('/databases', methods=['GET'])
-def databases():
-  sketch_img_path = "/static/images/uploads/"+os.listdir('static/images/uploads')[-1]
-  return render_template('databases.html', sketch_img_path=sketch_img_path,)
+def databases(path="static/images/uploads/"):
+  result_img_path = path+os.listdir(path)[-1]
+  return render_template('databases.html', result_img_path=result_img_path)
 
 @app.route('/knn', methods=['GET'])
-def knn():
+def knn(path="static/images/uploads/"):
   nn_paths = knn_model()
-  return render_template('knn.html', nn_paths=nn_paths)
+  result_img_path = path+os.listdir(path)[-1]
+  return render_template('knn.html'), result_img_path=result_img_path)
 
 def knn_model():
   upload_path = "static/images/uploads/combinas_fake_B.png"
