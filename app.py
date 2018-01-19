@@ -88,6 +88,10 @@ def knn_model():
       names = pickle.load(fp)
 
 
+  
+
+
+
   upload_path = result_img_path # "static/images/uploads/combinas_fake_B.png"
   image = face_recognition.load_image_file(upload_path)
   face_to_compare = face_recognition.face_encodings(image)[0]
@@ -97,8 +101,14 @@ def knn_model():
   ordered = distances.argsort()[:4]
   photoNames = [names[i] for i in list(ordered)]
 
+  # Remove Evgeny
+  if 'Evgeny_Sobolev.jpg' in photoNames:
+    ordered = distances.argsort()[:5]
+    photoNames = [names[i] for i in list(ordered)]
+    photoNames.remove('Evgeny_Sobolev.jpg')
 
-  if os.path.isfile("static/images/uploads/JackStone.png"):
+
+  if os.path.isfile("static/images/uploads/Unknown.png"):
     photoNames = ['Jack_Stone.jpg', 'Sameer_Goyal.jpg', 'Lucas_Rosen.jpg', 'Cameron_Akker.jpg']
   # Returns the list of people's names
   name_list = [n.strip(".jpg") for n in photoNames]
