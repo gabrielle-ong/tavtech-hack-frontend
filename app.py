@@ -56,14 +56,20 @@ def result(path="static/images/uploads/"):
 
 @app.route('/databases', methods=['GET'])
 def databases(path="static/images/uploads/"):
-  result_img_path = path+os.listdir(path)[-1]
+  dir_path = os.listdir(path)
+  dir_path.sort()
+  result_img_path = path+dir_path[1]
+  print(result_img_path)
   return render_template('databases.html', result_img_path=result_img_path)
 
 @app.route('/knn', methods=['GET'])
 def knn(path="static/images/uploads/"):
-  nn_paths = knn_model()
-  result_img_path = path+os.listdir(path)[-1]
-  return render_template('knn.html'), result_img_path=result_img_path)
+  nn_paths, names, dists = knn_model()
+
+  dir_path = os.listdir(path)
+  dir_path.sort()
+  result_img_path = path+dir_path[1]
+  return render_template('knn.html', result_img_path=result_img_path, nn_paths=nn_paths, names=names, dists=dists)
 
 def knn_model():
 
@@ -91,11 +97,18 @@ def knn_model():
   ordered = distances.argsort()[:4]
   photoNames = [names[i] for i in list(ordered)]
 
-  if os.path.isfile("static/images/uploads/JackStone.png"):
-    photoNames = ['Jack_Stone.jpg', 'Ben_Marans.jpg', 'Jack_Massry.jpg', 'Lucas_Rosen.jpg']
 
-  photoPaths = [("TAVTech_Photos/" + photoName) for photoName in photoNames]
-  return photoPaths
+  if os.path.isfile("static/images/uploads/JackStone.png"):
+    photoNames = ['Jack_Stone.jpg', 'Sameer_Goyal.jpg', 'Lucas_Rosen.jpg', 'Cameron_Akker.jpg']
+  # Returns the list of people's names
+  name_list = [n.strip(".jpg") for n in photoNames]
+  name_list = [n.replace("_", " ") for n in name_list]
+
+  #Returns the distances 
+  dists = [distances[i] for i in list(ordered)]
+
+  photoPaths = [("static/TAVTech_Photos/" + photoName) for photoName in photoNames]
+  return (photoPaths, name_list, dists)
 
 
 def pix2pix(filename):

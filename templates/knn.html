@@ -25,17 +25,19 @@
     </div>
   </div>
 </div>
-<div class="container">
-  <div class="col-md-4 col-sm-12">
-    <img src={{result_img_path}} width="250" />
-  </div>
+<div class="col-md-3"></div>
+<div class="col-sm-3">
+  <img src={{result_img_path}} width="250" />
 </div>
-<div class="col-md-8">
-  {% for img in nn_paths %}
-    <img src={{img}} width="100" style="border:1px solid red; margin:20px"/>
+<div class="col-sm-4 text-center">
+  <h1 class="text">Suspects:</h1>
+  {% for index in range(4) %}
+    <img class="row" src={{nn_paths[index]}} width="400" style="position:relative; margin:20px"/>
+    <p class="img-captions">{{names[index]}}</p>
+    <p class="img-captions">Distance = {{dists[index]}}</p>
   {% endfor %}
   {% endblock %}
 </div>
-
+<div class="col-md-2"></div>
 {% block scripts %}
 {% endblock %}
