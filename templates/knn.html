@@ -25,9 +25,12 @@
     </div>
   </div>
 </div>
-<div class="col-sm-6 center">
+<div class="center">
     <img src="https://dummyimage.com/300x400/d0f2f5/fff.jpg&text=animation+here" img-responsive center-block/>
 </div>
+{% for img in nn_paths %}
+  <h1>{{img}}</h1>
+{% endfor %}
 {% endblock %}
 
 {% block scripts %}
