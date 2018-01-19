@@ -1,5 +1,11 @@
 $( function ()
 {
+	$(document).on( 'submit', '.image-form', function (ev)
+	{
+		$('.preview').addClass('hide');
+		$('.loading').removeClass('hide');
+
+	} )
 	// this should be handled different, but works for the demo
 	var template = '<div class="image well clearfix">' +
 		'<div class="crop-container col-xs-12 col-sm-6 pull-right">' +

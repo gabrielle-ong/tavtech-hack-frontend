@@ -39,20 +39,17 @@ def convert():
   pix2pix(filename)
   return redirect('/result')
 
-@app.route('/loading', methods=['GET'])
-def loading():
-  return render_template('loading.html')
-
 @app.route('/result', methods=['GET'])
 def result(path="static/images/uploads/"):
   # get photo from /static/images/results
-  sketch_img_path = path+os.listdir(path)[0]
-  result_img_path = path+os.listdir(path)[1]
+  sketch_img_path = path+os.listdir(path)[-1] #Gab to change to -2
+  result_img_path = path+os.listdir(path)[-1]
   return render_template('result.html', sketch_img_path=sketch_img_path, result_img_path=result_img_path)
 
 @app.route('/databases', methods=['GET'])
 def databases():
-  return render_template('databases.html')
+  sketch_img_path = "/static/images/uploads/"+os.listdir('static/images/uploads')[-1]
+  return render_template('databases.html', sketch_img_path=sketch_img_path,)
 
 @app.route('/knn', methods=['GET'])
 def knn():
@@ -60,7 +57,6 @@ def knn():
 
 
 def pix2pix(filename):
-
   upload_path = "static/images/uploads/"
   test_path = "pix2pix/datasets/faces/test/"
   save_dir = "results/faces_pix2pix/test_latest/"
@@ -78,47 +74,6 @@ def pix2pix(filename):
   ### 3. Perform Image Translation
   os.system("python pix2pix/test.py --dataroot pix2pix/datasets/faces --name faces_pix2pix --model pix2pix --which_model_netG unet_256 --which_direction BtoA --dataset_mode aligned --norm batch --gpu_id -1")
   os.system("mv " + save_dir+"images/combinas_fake_B.png " + upload_path+filename[:-4]+"_photo.png")
-
-
-# @app.route('/login')
-# def login():
-#     oauth_verifier = request.args.get('oauth_verifier')
-
-#     #Set OAUTH keys
-#     tl.first_login(session, oauth_verifier)
-
-#     #login with updated OAUTH keys
-#     twitter = tl.login(session)
-
-#     response = twitter.get("account/verify_credentials")
-#     speaker_id = response[u"id_str"]
-#     exists = os.path.exists(os.path.join('./static/traindata/', speaker_id))
-
-#     url = '/train' if not exists else '/home'
-#     return redirect(url)
-
-# @app.route("/train")
-# def train():
-#     def getArticle():
-#         text = []
-#         with open('article.txt','r') as f:
-#             for line in f:
-#                 text.append(line)
-#         return text
-
-#     twitter = tl.login(session)
-#     articles = getArticle()
-#     return render_template('train.html', articles = articles)
-
-
-# @app.route("/home")
-# def home():
-#     return render_template('home.html')
-
-# @app.route('/favicon.ico')
-# def favicon():
-#     return send_from_directory(os.path.join(app.root_path, 'static'),
-#                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

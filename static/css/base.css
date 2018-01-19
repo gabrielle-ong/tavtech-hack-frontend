@@ -13,15 +13,6 @@
   margin: 0 auto;
 }
 
-.text, a:hover {
-  color: grey;
-  text-decoration: none;
-}
-
-.preview {
-  height: 100vh;
-}
-
 /* SPACING */
 .mtm {
   margin-top: 30px;
